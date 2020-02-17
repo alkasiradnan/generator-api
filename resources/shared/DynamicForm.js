@@ -1,17 +1,3 @@
-// import React,{ Component } from "react";
-// import './DataForm.css';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// import { TextBox } from "./DataTypes/TextBox";
-// import {SelectDropDown} from "./DataTypes/SelectDropDown";
-// import {CheckBox} from "./DataTypes/CheckBox";
-// import {RadioButton} from "./DataTypes/RadioButton";
-// import {Color} from "./DataTypes/Color";
-// import {Date} from "./DataTypes/Date";
-// import {File} from "./DataTypes/File";
-// import {Image} from "./DataTypes/Image";
-// import {Number} from "./DataTypes/Number";
-// import {Tel} from "./DataTypes/Tel";
-// import {URL} from "./DataTypes/URL";
 const selectDropDown = require('../shared/DataTypes/SelectDropDown')
 const checkBox = require('../shared/DataTypes/CheckBox')
 const radioButton = require('../shared/DataTypes/RadioButton')
@@ -24,56 +10,44 @@ const number = require('../shared/DataTypes/Number')
 const tel = require('../shared/DataTypes/Tel')
 const url = require('../shared/DataTypes/URL')
 
-// class DynamicForm extends Component
-// {
-//     constructor(props)
-//     {
-//         super(props)
-//     }
-
-//     render()
-//     {
-
 module.exports = function createComp(items){
 let content = items.map((item) => {          
                 
-    if(item.type === 'Select'){
+    if(item.type.toLowerCase() === 'select'){
        return selectDropDown(item.name)
     }
-     if(item.type === 'Text'){
+     if(item.type.toLowerCase() === 'text'){
         return  textBox(item.name)
     }
-    else if(item.type === 'CheckBox'){
+    else if(item.type.toLowerCase() === 'checkBox'){
         return  checkBox()
     }
-    else if(item.type === 'RadioButton'){
+    else if(item.type.toLowerCase() === 'radioButton'){
         return  radioButton(item.name)
     }
-    else if(item.type === 'Color'){
+    else if(item.type.toLowerCase() === 'color'){
         return  color(item.name)
     }
-    else if(item.type === 'Date'){
+    else if(item.type.toLowerCase() === 'date'){
         return  date(item.name)
     }
-    else if(item.type === 'File'){
+    else if(item.type.toLowerCase() === 'file'){
         return  file()
     }
-    else if(item.type === 'Image'){
+    else if(item.type.toLowerCase() === 'image'){
         return  image(item.name)
     }
-    else if(item.type === 'Number'){
+    else if(item.type.toLowerCase() === 'number'){
         return  number(item.name)
     }
-    else if(item.type === 'Tel'){
+    else if(item.type.toLowerCase() === 'tel'){
         return  tel(item.name)
     }
-    else if(item.type === 'URL'){
+    else if(item.type.toLowerCase() === 'url'){
         return  url(item.name)
     }
 
     })
-
-     //   var items = this.props.items;
         return `
         <form>
             ${content.join("\n")}
