@@ -33,33 +33,33 @@ let content = items.map((item) => {
      if(item.type === 'Text'){
         return  textBox(item.name)
     }
-    // else if(item.type === 'CheckBox'){
-    //     return  <CheckBox />
-    // }
-    // else if(item.type === 'RadioButton'){
-    //     return  <RadioButton name = {item.name} />
-    // }
-    // else if(item.type === 'Color'){
-    //     return  <Color name = {item.name} />
-    // }
-    // else if(item.type === 'Date'){
-    //     return  <Date name = {item.name} />
-    // }
-    // else if(item.type === 'File'){
-    //     return  <File />
-    // }
-    // else if(item.type === 'Image'){
-    //     return  <Image name = {item.name} />
-    // }
-    // else if(item.type === 'Number'){
-    //     return  <Number name = {item.name} />
-    // }
-    // else if(item.type === 'Tel'){
-    //     return  <Tel name = {item.name} />
-    // }
-    // else if(item.type === 'URL'){
-    //     return  <URL name = {item.name} />
-    // }
+    else if(item.type === 'CheckBox'){
+        return  CheckBox()
+    }
+    else if(item.type === 'RadioButton'){
+        return  RadioButton(item.name)
+    }
+    else if(item.type === 'Color'){
+        return  Color(item.name)
+    }
+    else if(item.type === 'Date'){
+        return  Date(item.name)
+    }
+    else if(item.type === 'File'){
+        return  File()
+    }
+    else if(item.type === 'Image'){
+        return  Image(item.name)
+    }
+    else if(item.type === 'Number'){
+        return  Number(item.name)
+    }
+    else if(item.type === 'Tel'){
+        return  Tel(item.name)
+    }
+    else if(item.type === 'URL'){
+        return  URL(item.name)
+    }
 
     })
 
