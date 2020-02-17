@@ -12,7 +12,17 @@
 // import {Number} from "./DataTypes/Number";
 // import {Tel} from "./DataTypes/Tel";
 // import {URL} from "./DataTypes/URL";
+const selectDropDown = require('../shared/DataTypes/SelectDropDown')
+const checkBox = require('../shared/DataTypes/CheckBox')
+const radioButton = require('../shared/DataTypes/RadioButton')
+const color = require('../shared/DataTypes/Color')
+const date = require('../shared/DataTypes/Date')
 const textBox = require('../shared/DataTypes/TextBox')
+const file = require('../shared/DataTypes/File')
+const image = require('../shared/DataTypes/Image')
+const number = require('../shared/DataTypes/Number')
+const tel = require('../shared/DataTypes/Tel')
+const url = require('../shared/DataTypes/URL')
 
 // class DynamicForm extends Component
 // {
@@ -27,38 +37,38 @@ const textBox = require('../shared/DataTypes/TextBox')
 module.exports = function createComp(items){
 let content = items.map((item) => {          
                 
-    // if(item.type === 'Select'){
-    //    return <SelectDropDown name = {item.name}></SelectDropDown>
-    // }
+    if(item.type === 'Select'){
+       return selectDropDown(item.name)
+    }
      if(item.type === 'Text'){
         return  textBox(item.name)
     }
     else if(item.type === 'CheckBox'){
-        return  CheckBox()
+        return  checkBox()
     }
     else if(item.type === 'RadioButton'){
-        return  RadioButton(item.name)
+        return  radioButton(item.name)
     }
     else if(item.type === 'Color'){
-        return  Color(item.name)
+        return  color(item.name)
     }
     else if(item.type === 'Date'){
-        return  Date(item.name)
+        return  date(item.name)
     }
     else if(item.type === 'File'){
-        return  File()
+        return  file()
     }
     else if(item.type === 'Image'){
-        return  Image(item.name)
+        return  image(item.name)
     }
     else if(item.type === 'Number'){
-        return  Number(item.name)
+        return  number(item.name)
     }
     else if(item.type === 'Tel'){
-        return  Tel(item.name)
+        return  tel(item.name)
     }
     else if(item.type === 'URL'){
-        return  URL(item.name)
+        return  url(item.name)
     }
 
     })
