@@ -3,6 +3,6 @@
 module.exports = number = (name) => {
     return `<div className="form-group">
              <label> ${name} </label>
-            <input type="number" min="1" className="form-control" />
+            <input type="number" min="1" className="form-control" value = {${entityName.toLowerCase()}['${name}']} />
         </div>`;
 };

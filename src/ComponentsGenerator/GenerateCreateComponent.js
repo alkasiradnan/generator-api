@@ -2,7 +2,7 @@ const createComp = require('../../resources/shared/DynamicForm')
 
 module.exports = function GenerateCreateComponent(entityName, properties) {
     console.log("proper", properties)
-    let result = createComp(properties);
+    let result = createComp(properties,entityName);
     console.log("result", result)
     return `
 
@@ -10,7 +10,7 @@ module.exports = function GenerateCreateComponent(entityName, properties) {
     import DynamicForm from '../shared/DynamicForm';
 
     export default function ${entityName}CreateComponent({}) {
-
+      const [${entityName.toString().toLowerCase()},set${entityName}] =useState({})
   var properties = ${JSON.stringify(properties)};
   return (
       <div>

@@ -10,14 +10,14 @@ const number = require('../shared/DataTypes/Number')
 const tel = require('../shared/DataTypes/Tel')
 const url = require('../shared/DataTypes/URL')
 
-module.exports = function createComp(items){
+module.exports = function createComp(items,entityName){
 let content = items.map((item) => {          
                 
     if(item.type.toLowerCase() === 'select'){
-       return selectDropDown(item.name)
+       return selectDropDown(item.name,entityName)
     }
      if(item.type.toLowerCase() === 'text'){
-        return  textBox(item.name)
+        return  textBox(item.name,entityName)
     }
     else if(item.type.toLowerCase() === 'checkBox'){
         return  checkBox()
