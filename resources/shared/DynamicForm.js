@@ -23,28 +23,28 @@ let content = items.map((item) => {
         return  checkBox()
     }
     else if(item.type.toLowerCase() === 'radioButton'){
-        return  radioButton(item.name)
+        return  radioButton(item.name,entityName)
     }
     else if(item.type.toLowerCase() === 'color'){
-        return  color(item.name)
+        return  color(item.name,entityName)
     }
     else if(item.type.toLowerCase() === 'date'){
-        return  date(item.name)
+        return  date(item.name,entityName)
     }
     else if(item.type.toLowerCase() === 'file'){
         return  file()
     }
     else if(item.type.toLowerCase() === 'image'){
-        return  image(item.name)
+        return  image(item.name,entityName)
     }
     else if(item.type.toLowerCase() === 'number'){
-        return  number(item.name)
+        return  number(item.name,entityName)
     }
     else if(item.type.toLowerCase() === 'tel'){
-        return  tel(item.name)
+        return  tel(item.name,entityName)
     }
     else if(item.type.toLowerCase() === 'url'){
-        return  url(item.name)
+        return  url(item.name,entityName)
     }
 
     })

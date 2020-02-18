@@ -1,8 +1,8 @@
 //import React from 'react'
 
-module.exports = radioButton = (name) => {
+module.exports = radioButton = (name,entityName) => {
     return `<div className="form-group">
              <label> ${name} </label>
-            <input type="radio" value="option1" checked={true} className="form-control" />
+            <input type="radio" value="option1" checked={true} className="form-control" value = {${entityName.toLowerCase()}['${name}']}  />
         </div>`;
 };
