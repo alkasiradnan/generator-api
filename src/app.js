@@ -57,7 +57,7 @@ try {
 } catch(e) {
   console.log("An error occurred.")
 }
-const content = GenerateListComponent(entityName);
+const content = GenerateListComponent(entityName,entityProperties);
 await createFile(ListcomponentPath,content)
 
 console.log(content);
