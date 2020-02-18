@@ -1,6 +1,6 @@
 module.exports = function GenerateListComponent(entityName,properties) {
 
-  
+
  
 console.log("properties in header",properties)
     return `
@@ -10,10 +10,30 @@ console.log("properties in header",properties)
     import { Table } from 'reactstrap';
     // import Edit from './Action/Edit';
     // import Delete from './Action/Delete ';
-
+    import Pagination from '../shared/DataTable/Pagination';
+    
 
     export default function ${entityName}ListComponent() {
       const [${entityName}s, set${entityName}s] = useState();
+      const [startIndex, setStartIndex] = useState(0)
+      const [pageSize, setPageSize] = useState(10);
+    
+      const [propertiesToShow, setPropertiesToShow] = useState()
+      //render next 10 items when the currentPage changes
+      useEffect(()=>{
+        if(${entityName}s.length<=pageSize){
+          setPropertiesToShow(${entityName}s)
+        }
+        else{
+        const propertiesToSplice = [...${entityName}s];
+        setPropertiesToShow(propertiesToSplice.splice(startIndex,pageSize))
+        }
+      
+      },[startIndex,${entityName}s]);
+      
+      console.log(${entityName}s)
+
+      
       const fetch${entityName}s = async () => {
         const ${entityName}Response = await axios.get(
           "https://jsonplaceholder.typicode.com/posts"
@@ -22,6 +42,7 @@ console.log("properties in header",properties)
           set${entityName}s(${entityName}Response.data);
         }
       };
+
       useEffect(() => {
         fetch${entityName}s();
         return () => {};
@@ -44,7 +65,12 @@ console.log("properties in header",properties)
          ${GenerateTableBody(entityName,properties)}
          
          </Table>
+         
         }
+        <Pagination 
+          setStartIndex={setStartIndex}
+          pageSize={pageSize }
+          count={${entityName}s.length}></Pagination>
       </div>;
     }
        
@@ -68,7 +94,10 @@ function GenerateTableBody(entityName,properties){
   
   const tbodyToRender=properties.map(propName=>{
     return `<td>${propName.name}</td>`
-  }).concat([`<td><button  onClick={(id)=>edit${entityName}(id)}>Edit</button><button onClick={(id)=>delete${entityName}(id)}>Delete</button></td>`]).join(' ')
+  }).concat([`<td>
+  <i class="fa fa-pencil-square-o fa-2x mr-4" data-toggle='tooltip' title='edit' aria-hidden="true"  onClick={(id)=>edit${entityName}(id)}></i>
+  <i class="fa fa-trash-o fa-2x" data-toggle='tooltip' title='delete' aria-hidden="true" onClick={(id)=>delete${entityName}(id)}></i>
+  </td>`]).join(' ')
   return `<tbody><tr> ${tbodyToRender} </tr></tbody>`
 }
 
