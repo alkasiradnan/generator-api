@@ -1,11 +1,8 @@
-import React from 'react'
+//import React from 'react'
 
-export const Date = ({name}) => {
-    return (
-        <div className="form-group">
-              <label> {name} </label>
-            <input type="date"  name={name} className="form-control" />
-          
-        </div>
-    );
+module.exports =  date = ({name}) => {
+    return `<div className="form-group">
+            <label> ${name} </label>
+            <input type="date" className="form-control" value = {${entityName.toLowerCase()}['${name}']} />
+        </div>`;
 };

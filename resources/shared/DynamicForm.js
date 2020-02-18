@@ -1,69 +1,53 @@
-// import React,{ Component } from "react";
-// import './DataForm.css';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// import { TextBox } from "./DataTypes/TextBox";
-// import {SelectDropDown} from "./DataTypes/SelectDropDown";
-// import {CheckBox} from "./DataTypes/CheckBox";
-// import {RadioButton} from "./DataTypes/RadioButton";
-// import {Color} from "./DataTypes/Color";
-// import {Date} from "./DataTypes/Date";
-// import {File} from "./DataTypes/File";
-// import {Image} from "./DataTypes/Image";
-// import {Number} from "./DataTypes/Number";
-// import {Tel} from "./DataTypes/Tel";
-// import {URL} from "./DataTypes/URL";
+const selectDropDown = require('../shared/DataTypes/SelectDropDown')
+const checkBox = require('../shared/DataTypes/CheckBox')
+const radioButton = require('../shared/DataTypes/RadioButton')
+const color = require('../shared/DataTypes/Color')
+const date = require('../shared/DataTypes/Date')
 const textBox = require('../shared/DataTypes/TextBox')
+const file = require('../shared/DataTypes/File')
+const image = require('../shared/DataTypes/Image')
+const number = require('../shared/DataTypes/Number')
+const tel = require('../shared/DataTypes/Tel')
+const url = require('../shared/DataTypes/URL')
 
-// class DynamicForm extends Component
-// {
-//     constructor(props)
-//     {
-//         super(props)
-//     }
-
-//     render()
-//     {
-
-module.exports = function createComp(items){
+module.exports = function createComp(items,entityName){
 let content = items.map((item) => {          
                 
-    // if(item.type === 'Select'){
-    //    return <SelectDropDown name = {item.name}></SelectDropDown>
-    // }
-     if(item.type === 'Text'){
-        return  textBox(item.name)
+    if(item.type.toLowerCase() === 'select'){
+       return selectDropDown(item.name,entityName)
     }
-    // else if(item.type === 'CheckBox'){
-    //     return  <CheckBox />
-    // }
-    // else if(item.type === 'RadioButton'){
-    //     return  <RadioButton name = {item.name} />
-    // }
-    // else if(item.type === 'Color'){
-    //     return  <Color name = {item.name} />
-    // }
-    // else if(item.type === 'Date'){
-    //     return  <Date name = {item.name} />
-    // }
-    // else if(item.type === 'File'){
-    //     return  <File />
-    // }
-    // else if(item.type === 'Image'){
-    //     return  <Image name = {item.name} />
-    // }
-    // else if(item.type === 'Number'){
-    //     return  <Number name = {item.name} />
-    // }
-    // else if(item.type === 'Tel'){
-    //     return  <Tel name = {item.name} />
-    // }
-    // else if(item.type === 'URL'){
-    //     return  <URL name = {item.name} />
-    // }
+     if(item.type.toLowerCase() === 'text'){
+        return  textBox(item.name,entityName)
+    }
+    else if(item.type.toLowerCase() === 'checkBox'){
+        return  checkBox()
+    }
+    else if(item.type.toLowerCase() === 'radioButton'){
+        return  radioButton(item.name)
+    }
+    else if(item.type.toLowerCase() === 'color'){
+        return  color(item.name)
+    }
+    else if(item.type.toLowerCase() === 'date'){
+        return  date(item.name)
+    }
+    else if(item.type.toLowerCase() === 'file'){
+        return  file()
+    }
+    else if(item.type.toLowerCase() === 'image'){
+        return  image(item.name)
+    }
+    else if(item.type.toLowerCase() === 'number'){
+        return  number(item.name)
+    }
+    else if(item.type.toLowerCase() === 'tel'){
+        return  tel(item.name)
+    }
+    else if(item.type.toLowerCase() === 'url'){
+        return  url(item.name)
+    }
 
     })
-
-     //   var items = this.props.items;
         return `
         <form>
             ${content.join("\n")}

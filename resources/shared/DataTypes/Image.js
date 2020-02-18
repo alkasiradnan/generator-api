@@ -1,10 +1,8 @@
-import React from 'react'
+//import React from 'react'
 
-export const Image = ({name}) => {
-    return (
-        <div className="form-group">
-             <label> {name} </label>
-            <img src={name} alt="Italian Trulli" className="form-control" />
-        </div>
-    );
+module.exports = image = (name) => {
+    return `<div className="form-group">
+             <label> ${name} </label>
+            <img src=${name} alt="Italian Trulli" className="form-control" />
+        </div>`;
 };

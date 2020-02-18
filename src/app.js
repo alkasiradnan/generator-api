@@ -61,9 +61,10 @@ const content = GenerateListComponent(entityName,entityProperties);
 await createFile(ListcomponentPath,content)
 
 console.log(content);
-const createContent = GenerateCreateComponent(entityName,entityProperties)
+const createContent = GenerateCreateComponent(entityName,entityProperties,false)
+const editContent = GenerateCreateComponent(entityName,entityProperties,true)
 await createFile(CreatecomponentPath,createContent)
-await createFile(EditcomponentPath,"EditcomponentPath")
+await createFile(EditcomponentPath,editContent)
 await createFile(CssPath,"CssPath")
 //get Data to write in files 
 

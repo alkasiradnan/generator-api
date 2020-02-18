@@ -1,9 +1,8 @@
-import React from 'react'
+//import React from 'react'
 
-export const Color = ({name}) => {
-    return (
-        <div className="form-group">
-            <input type="color" name="favcolor" value={name} className="form-control" />
-        </div>
-    );
+module.exports = color = (name) => {
+    return `<div className="form-group">
+            <input type="color" name="favcolor" className="form-control" />
+            <label> ${name} </label>
+        </div>`;
 };
