@@ -5,12 +5,12 @@ const color = require('../shared/DataTypes/Color')
 const date = require('../shared/DataTypes/Date')
 const textBox = require('../shared/DataTypes/TextBox')
 const file = require('../shared/DataTypes/File')
-const image = require('../shared/DataTypes/Image')
+const {image,imageMethods} = require('../shared/DataTypes/Image')
 const number = require('../shared/DataTypes/Number')
 const tel = require('../shared/DataTypes/Tel')
 const url = require('../shared/DataTypes/URL')
 
-module.exports = function createComp(items,entityName){
+function createComp(items,entityName){
 let content = items.map((item) => {          
                 
     if(item.type.toLowerCase() === 'select'){
@@ -35,6 +35,7 @@ let content = items.map((item) => {
         return  file()
     }
     else if(item.type.toLowerCase() === 'image'){
+
         return  image(item.name,entityName)
     }
     else if(item.type.toLowerCase() === 'number'){
@@ -57,3 +58,9 @@ let content = items.map((item) => {
             </form>`
         
     }
+
+function imageFunc(){
+        return imageMethods();
+    }
+
+    module.exports = {createComp,imageFunc}

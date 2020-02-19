@@ -1,23 +1,31 @@
-const createComp = require('../../resources/shared/DynamicForm')
+const {createComp,imageFunc} = require('../../resources/shared/DynamicForm')
 
 module.exports = function GenerateCreateComponent(entityName, properties) {
-    console.log("proper", properties)
     let result = createComp(properties,entityName);
-    console.log("result", result)
+    let imgContent = "";
+    let imageMethod = properties.map((item) => {                  
+      if(item.type.toLowerCase() === 'image'){
+          imgContent = imageFunc();
+      }
+    })
+
     return `
 
-    import React from 'react';
+    import React, { Component } from 'react';
     import DynamicForm from '../shared/DynamicForm';
+    const employee = ({});
+    const [${entityName.toString().toLowerCase()},set${entityName}] =useState({});
+    export default class ${entityName}CreateComponent  extends Component{
+     ${imgContent}
 
-    export default function ${entityName}CreateComponent({}) {
-      const [${entityName.toString().toLowerCase()},set${entityName}] =useState({})
-  var properties = ${JSON.stringify(properties)};
+      
+  render(){
   return (
       <div>
     ${result}
     </div>
   );
 }
-
+}
     `
 }
