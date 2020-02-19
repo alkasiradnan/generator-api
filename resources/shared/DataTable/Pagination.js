@@ -11,7 +11,7 @@ const Pagination = ({ setStartIndex, pageSize, count }) => {
   console.log(Array.from(Array(count / pageSize).keys()));
   return noOfPages && noOfPages.length ? (
     <div>
-      <ul className="pagination">
+      <ul className="pagination justify-content-center ">
         <li className="page-item">
           <a
             className="page-link"
