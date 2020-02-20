@@ -39,6 +39,7 @@ build/Release
 
 # Dependency directories
 node_modules/
+starter-project/
 jspm_packages/
 
 # TypeScript v1 declaration files
@@ -98,6 +99,7 @@ dist
 .fusebox/
 
 # DynamoDB Local files
+
 .dynamodb/
 
 # TernJS port file
