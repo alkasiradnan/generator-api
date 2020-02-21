@@ -53,7 +53,7 @@ let content = items.map((item) => {
         <form>
             ${content.join("\n")}
             <div class="form">
-                <button type="submit" class="btn btn-primary">Sign in</button>
+                <button type="submit" class="btn btn-primary" onClick={this.onSubmit}>Sign in</button>
             </div>
             </form>`
         

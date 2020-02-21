@@ -3,7 +3,6 @@
 module.exports = url = (name,entityName) => {
     return `<div className="form-group">
              <label> ${name} </label>
-            <input type="url" className="form-control" value = {${entityName.toLowerCase()}['${name}']} placeholder="http://google.com/"/>
+            <input type="url" name = "urlPath" className="form-control" value = {${entityName.toLowerCase()}['${name}']} placeholder="http://google.com/" onChange={this.onChange}/>
         </div>`;
 };
-14

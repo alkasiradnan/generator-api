@@ -13,14 +13,14 @@ image = (name,entityName) => {
                 </div>
 
                 <div className="form-group">
-                <input type="file" style={{visibility:'hidden'}} name = "image"  id="selectedFile"
-                className="form-control" onChange={this.uploadMultipleFiles}  value = {${entityName.toLowerCase()}['${name}']} multiple />
+                <input type="file" style={{visibility:'hidden'}} name = "image"   id="selectedFile"
+                className="form-control" onChange={this.uploadMultipleFiles}  value = {${entityName.toLowerCase()}['${name}']} multiple onChange={this.onChange}/>
 
-                <label>Click me </label><img src = {require('./images/img-upload.png')} id="upfile1"  alt = "Click" 
+                <img src = {require('./images/img-upload.png')} id="upfile1"  alt = "Click" 
                 style={{width:'40px',height:'40px'}} onClick = {this.imageClick}  />
                 
                 </div>
-                <button type="button" className="btn btn-danger btn-block" onClick={this.uploadFiles}>Upload</button>`;
+                <button type="button" className="btn btn-danger btn-block" onClick={this.uploadFiles} style={{width:'80px',height:'50px'}}>Upload</button>`;
 };
 
 
@@ -28,18 +28,8 @@ imageMethods = () => {
 
    return  ` fileObj = [];
    fileArray = [];
-   constructor(props)
-   {
-     super(props)
-     this.state = {
-         file: [null]
-     }
-     this.uploadMultipleFiles = this.uploadMultipleFiles.bind(this)
-   //  this.uploadFiles = this.uploadFiles.bind(this)
-   }
-
-   uploadMultipleFiles(e) 
-   {
+   
+   uploadMultipleFiles = (e) =>   {
      if(e.target.value.length !== 0){
      this.fileObj.push(e.target.files)
      
