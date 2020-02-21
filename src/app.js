@@ -5,6 +5,7 @@ const cors = require('cors');
 const GenerateListComponent = require('./ComponentsGenerator/GenerateListComponent');
 const GenerateCreateComponent = require('./ComponentsGenerator/GenerateCreateComponent');
 const {GenerateActionsIndex,GenerateActions,GenerateConstantFile} = require('./ActionsGenerator/GenerateAction');
+const {GenerateReducers} = require('./ReducersGenerator/GenerateReducer');
 
 const fs = require('fs')
 const fsPromises = fs.promises;
@@ -47,7 +48,7 @@ app.post('/process', async (req, res) => {
   const actionIndexPath = process.cwd() + folderName + '/actions'+ '/' +'index.js';
   const actionCreatorPath = process.cwd() + folderName + '/actions'+ '/' +entityName.toLowerCase()+'Action.js';
   const constantsPath = process.cwd() + folderName + '/actions'+ '/' +'actionTypes.js';
-
+  const reducerCreatorPath = process.cwd() + folderName + '/reducers'+ '/' +entityName.toLowerCase()+'Reducer.js';
   
   //create a shared folder with dynamic table and forms
 
@@ -82,6 +83,8 @@ app.post('/process', async (req, res) => {
   await appendFile(constantsPath, constantActionTypes)
   const actionCreater = GenerateActions(entityName);
   await createFile(actionCreatorPath,actionCreater)
+  const reducerCreator = GenerateReducers(entityName);
+  await createFile(reducerCreatorPath,reducerCreator)
   //get Data to write in files 
 
   //create files 
@@ -116,6 +119,8 @@ const copyFile = (source, destination) => {
 }
 
 const createFile = (filePath, fileContent) => {
+  console.log(filePath);
+  
   fs.writeFile(filePath, fileContent, (error) => {
     if (error) {
       console.error("An error occurred :", error)

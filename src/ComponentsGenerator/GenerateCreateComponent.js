@@ -13,6 +13,12 @@ module.exports = function GenerateCreateComponent(entityName, properties) {
 
     import React, { Component } from 'react';
     import DynamicForm from '../shared/DynamicForm';
+
+    import { connect } from "react-redux";
+    import addEmployee from "./actions/employeeAction";
+    // import editEmployee from "./actions/employeeAction";
+    // import getEmployee from "./actions/employeeAction";
+
     const employee = ({});
     
     export default class ${entityName}CreateComponent  extends Component{
@@ -52,7 +58,7 @@ module.exports = function GenerateCreateComponent(entityName, properties) {
        
     onSubmit = () => {
       console.log(this.state.employee);
-      
+      this.props.onSubmit(this.state.employee);
     }
 
   render(){
@@ -63,5 +69,17 @@ module.exports = function GenerateCreateComponent(entityName, properties) {
   );
 }
 }
+const mapStateToProps = state => ({
+  ...state
+});
+
+const mapDispatchToProps = dispatch => ({
+  onSubmit: (employee) => {
+    const payload = addEmployee.add${entityName}(employee);
+    dispatch({ type: 'ADD_${entityName.toUpperCase()}', payload })
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(${entityName});
     `
 }

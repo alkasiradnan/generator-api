@@ -27,7 +27,7 @@ export const get${entityName} = (data) => {
         data
     }
 }
-    `
+export default {add${entityName},edit${entityName},get${entityName}};  `
 }
 
 

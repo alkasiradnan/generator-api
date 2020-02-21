@@ -20,4 +20,4 @@ export const getEmployee = (data) => {
         data
     }
 }
-    
+export default {addEmployee,editEmployee,getEmployee};  
