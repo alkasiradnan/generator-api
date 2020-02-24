@@ -8,45 +8,61 @@ console.log("properties in header",properties)
     import React, { useEffect, useState } from "react";
     import axios from 'axios';
     import { Table } from 'reactstrap';
-    // import Edit from './Action/Edit';
-    // import Delete from './Action/Delete ';
+   
     import Pagination from '../shared/DataTable/Pagination';
     
 
     export default function ${entityName}ListComponent() {
-      const [${entityName}s, set${entityName}s] = useState();
+      const [${entityName}s, set${entityName}s] = useState([
+        {User:'Deeraj',Telphone:'7304541558',Date:'23/05/2005'},
+        {User:'Raju',Telphone:'7304541558',Date:'23/05/2005'},
+        {User:'Neeraj',Telphone:'7304541558',Date:'23/05/2005'}
+      ]);
+      const [${entityName}Copys, set${entityName}Copys] = useState([
+        {User:'Deeraj',Telphone:'7304541558',Date:'23/05/2005'},
+        {User:'Raju',Telphone:'7304541558',Date:'23/05/2005'},
+        {User:'Neeraj',Telphone:'7304541558',Date:'23/05/2005'}
+      ]);
       const [startIndex, setStartIndex] = useState(0)
       const [pageSize, setPageSize] = useState(10);
-    
-      const [propertiesToShow, setPropertiesToShow] = useState()
+      const [propertiesToShow, setPropertiesToShow] = useState();
+      const [search,setSearch]=useState('')
+
       //render next 10 items when the currentPage changes
       useEffect(()=>{
-        if(${entityName}s.length<=pageSize){
-          setPropertiesToShow(${entityName}s)
+        if(${entityName}Copys.length<=pageSize){
+          setPropertiesToShow(${entityName}Copys)
         }
         else{
-        const propertiesToSplice = [...${entityName}s];
+        const propertiesToSplice = [...${entityName}Copys];
         setPropertiesToShow(propertiesToSplice.splice(startIndex,pageSize))
         }
       
-      },[startIndex,${entityName}s]);
+      },[startIndex,${entityName}Copys]);
       
-      console.log(${entityName}s)
-
+      
       
       const fetch${entityName}s = async () => {
         const ${entityName}Response = await axios.get(
-          "https://jsonplaceholder.typicode.com/posts"
+          "https://jsonplaceholder.typicode.com/posts//"
         );
         if (${entityName}Response && ${entityName}Response.data) {
           set${entityName}s(${entityName}Response.data);
+          set${entityName}Copys(${entityName}Response.data);
         }
+        
       };
 
-      useEffect(() => {
+      useEffect(()=>{
         fetch${entityName}s();
-        return () => {};
-      }, []);
+      },[])
+      
+      console.log('entityname',${entityName}s)
+      console.log('entityname',${entityName}Copys)
+
+      
+      
+
 
       const editEmployee=(id)=>{
 
@@ -54,23 +70,50 @@ console.log("properties in header",properties)
       const deleteEmployee=(id)=>{
     
       }
+
+      const updateSearch=(e)=>{
+        setSearch(e.target.value);
+  
+
+      //  const filteredEmployees = employees.filter(a=>{
+      //     return a['name'].startsWith(search);
+      //   })
+        // let propN=${entityName}s
+          if(search && ${entityName}s){
+            set${entityName}Copys( ${entityName}s)
+            console.log( ${entityName}Copys)
+            const filteredItems=${entityName}s && ${entityName}s.length?
+            ${entityName}s.filter(entity=>{
+              console.log(entity)
+               const {User}=entity;
+              return User.startsWith(e.target.value)
+            }):'no match found'
+            set${entityName}Copys(
+              filteredItems
+            )
+            console.log( ${entityName}Copys)
+          }
+      }
       
       return <div>
-          <h1> ${entityName} List</h1>
+          <h1>  ${entityName}List</h1>
           <hr></hr>
-         {${entityName}s && ${entityName}s.length && 
+          <input type='input' placeholder='Search' value={search} onChange={(e)=>updateSearch(e)}/>
+         {${entityName}Copys && ${entityName}Copys.length && 
+         <>
          <Table striped>
          
          ${GenerateTableHeader(entityName,properties)}
          ${GenerateTableBody(entityName,properties)}
          
          </Table>
-         
+         <Pagination 
+         setStartIndex={setStartIndex}
+         pageSize={pageSize }
+         count={${entityName}Copys.length}></Pagination>
+         </>
         }
-        <Pagination 
-          setStartIndex={setStartIndex}
-          pageSize={pageSize }
-          count={${entityName}s.length}></Pagination>
+       
       </div>;
     }
        
@@ -92,12 +135,22 @@ console.log(properties)
 
 function GenerateTableBody(entityName,properties){
   
+`{${entityName}Copys.map(${entityName} => {
+  return (`  
   const tbodyToRender=properties.map(propName=>{
-    return `<td>${propName.name}</td>`
+    return `<td>{${entityName}['${propName.name}']}</td>`
   }).concat([`<td>
   <i class="fa fa-pencil-square-o fa-2x mr-4" data-toggle='tooltip' title='edit' aria-hidden="true"  onClick={(id)=>edit${entityName}(id)}></i>
   <i class="fa fa-trash-o fa-2x" data-toggle='tooltip' title='delete' aria-hidden="true" onClick={(id)=>delete${entityName}(id)}></i>
   </td>`]).join(' ')
-  return `<tbody><tr> ${tbodyToRender} </tr></tbody>`
+
+  
+  return `<tbody>{
+    ${entityName}Copys.map(${entityName} => {
+      return (
+    <tr> ${tbodyToRender} </tr>)
+    })
+  }
+  </tbody>`
 }
 
