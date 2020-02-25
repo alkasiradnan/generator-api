@@ -18,7 +18,7 @@ module.exports = function GenerateCreateComponent(entityName, properties) {
     import addEmployee from "./actions/employeeAction";
     // import editEmployee from "./actions/employeeAction";
     // import getEmployee from "./actions/employeeAction";
-
+    import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label, Form, FormGroup } from 'reactstrap';
     const employee = ({});
     
     export default class ${entityName}CreateComponent  extends Component{
@@ -40,7 +40,9 @@ module.exports = function GenerateCreateComponent(entityName, properties) {
           img:'',
           contact:'',
           radio:'',
-          urlPath:''
+          urlPath:'',
+          backdrop:true,
+          keyboard:true
         }
      }
     //  this.uploadMultipleFiles = this.uploadMultipleFiles.bind(this)
@@ -64,7 +66,9 @@ module.exports = function GenerateCreateComponent(entityName, properties) {
   render(){
   return (
       <div>
+      <Modal isOpen={this.props.modal} toggle={this.props.clicked} backdrop={this.state.backdrop} >
     ${result}
+    </Modal>
     </div>
   );
 }

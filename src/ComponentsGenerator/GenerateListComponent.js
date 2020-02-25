@@ -1,5 +1,5 @@
 module.exports = function GenerateListComponent(entityName,properties) {
-
+  
 
  
 console.log("properties in header",properties)
@@ -8,7 +8,7 @@ console.log("properties in header",properties)
     import React, { useEffect, useState } from "react";
     import axios from 'axios';
     import { Table } from 'reactstrap';
-   
+    import GenerateCreateComponent from './GenerateCreateComponent';
     import Pagination from '../shared/DataTable/Pagination';
     
 
@@ -26,7 +26,9 @@ console.log("properties in header",properties)
       const [startIndex, setStartIndex] = useState(0)
       const [pageSize, setPageSize] = useState(10);
       const [propertiesToShow, setPropertiesToShow] = useState();
-      const [search,setSearch]=useState('')
+      const [search,setSearch]=useState('');
+      const [toggle, setToggle] = useState(false);
+      const [modal, setModal] = useState(false);
 
       //render next 10 items when the currentPage changes
       useEffect(()=>{
@@ -55,30 +57,26 @@ console.log("properties in header",properties)
 
       useEffect(()=>{
         fetch${entityName}s();
+        return () => {};
       },[])
       
       console.log('entityname',${entityName}s)
       console.log('entityname',${entityName}Copys)
 
+      const openModal = () => {
+        setToggle(!toggle);
+        setModal(!modal);
+      };
       
-      
-
-
       const editEmployee=(id)=>{
 
       }
       const deleteEmployee=(id)=>{
     
       }
-
+  
       const updateSearch=(e)=>{
         setSearch(e.target.value);
-  
-
-      //  const filteredEmployees = employees.filter(a=>{
-      //     return a['name'].startsWith(search);
-      //   })
-        // let propN=${entityName}s
           if(search && ${entityName}s){
             set${entityName}Copys( ${entityName}s)
             console.log( ${entityName}Copys)
@@ -96,12 +94,26 @@ console.log("properties in header",properties)
       }
       
       return <div>
-          <h1>  ${entityName}List</h1>
+          <div className='d-flex'>
+          <h1 className='mr-auto'>  ${entityName}List</h1>
+          <button type='button' 
+          onClick={openModal} 
+          className='btn btn-primary mr-2' 
+          style={{height:'37px',width:'76px'}}>Add</button>
+        {toggle?<GenerateCreateComponent toggle={toggle} modal={modal} clicked={openModal} />:''}
+          </div>
+          
           <hr></hr>
-          <input type='input' placeholder='Search' value={search} onChange={(e)=>updateSearch(e)}/>
-         {${entityName}Copys && ${entityName}Copys.length && 
+          <input 
+          type='input' 
+          placeholder='Search' 
+          value={search} 
+          onChange={(e)=>updateSearch(e)}
+          className='form-control'
+          />
+         {${entityName}Copys && ${entityName}Copys.length ?
          <>
-         <Table striped>
+         <Table striped hover>
          
          ${GenerateTableHeader(entityName,properties)}
          ${GenerateTableBody(entityName,properties)}
@@ -111,7 +123,7 @@ console.log("properties in header",properties)
          setStartIndex={setStartIndex}
          pageSize={pageSize }
          count={${entityName}Copys.length}></Pagination>
-         </>
+         </>:<h2 style={{textAlign:"center"}}>No match found</h2>
         }
        
       </div>;
@@ -126,11 +138,14 @@ console.log("properties in header",properties)
  function GenerateTableHeader(entityName,properties) {
 console.log(properties)
 
+// const theadToRender=Object.keys(properties[0]).map(thead=>`<th>${thead.name}</th>`).concat([`<th>Action</th>`]).join(' ')
+// console.log("theadToRender",theadToRender)
+// return `<thead><tr style={{textAlign:"center"}}>${theadToRender}</tr></thead>`
   const theadToRender = properties.map(propName=>{
     return `<th>${propName.name}</th>`
   }).concat([`<th>Action</th>`]).join(' ')
   console.log("theadToRender",theadToRender)
-  return `<thead><tr>${theadToRender}</tr></thead>`
+  return `<thead><tr style={{textAlign:"center"}}>${theadToRender}</tr></thead>`
 }
 
 function GenerateTableBody(entityName,properties){
@@ -148,7 +163,7 @@ function GenerateTableBody(entityName,properties){
   return `<tbody>{
     ${entityName}Copys.map(${entityName} => {
       return (
-    <tr> ${tbodyToRender} </tr>)
+    <tr style={{textAlign:"center"}}> ${tbodyToRender} </tr>)
     })
   }
   </tbody>`
