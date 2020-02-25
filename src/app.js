@@ -6,6 +6,8 @@ const GenerateListComponent = require('./ComponentsGenerator/GenerateListCompone
 const GenerateCreateComponent = require('./ComponentsGenerator/GenerateCreateComponent');
 const {GenerateActionsIndex,GenerateActions,GenerateConstantFile} = require('./ActionsGenerator/GenerateAction');
 const {GenerateReducers} = require('./ReducersGenerator/GenerateReducer');
+const {GenerateReducerIndex} = require('./ReducerGenerator/GenerateReducer');
+
 
 const fs = require('fs')
 const fsPromises = fs.promises;
@@ -49,7 +51,7 @@ app.post('/process', async (req, res) => {
   const actionCreatorPath = process.cwd() + folderName + '/actions'+ '/' +entityName.toLowerCase()+'Action.js';
   const constantsPath = process.cwd() + folderName + '/actions'+ '/' +'actionTypes.js';
   const reducerCreatorPath = process.cwd() + folderName + '/reducers'+ '/' +entityName.toLowerCase()+'Reducer.js';
-  
+  const reducerIndexPath = process.cwd() + folderName + '/reducers'+ '/' +'index.js';
   //create a shared folder with dynamic table and forms
 
 
@@ -76,13 +78,15 @@ app.post('/process', async (req, res) => {
   const actionNames = entityName.toLowerCase()+"Action"
   console.log("actio",actionNames)
   console.log(GenerateActionsIndex(actionNames))
-  const actionIndexContent = GenerateActionsIndex(actionNames);
+  const actionIndexContent = GenerateActionsIndex(actionNames,entityName);
   console.log(actionIndexContent)
   await appendFile(actionIndexPath, actionIndexContent)
   const constantActionTypes = GenerateConstantFile(entityName);
   await appendFile(constantsPath, constantActionTypes)
   const actionCreater = GenerateActions(entityName);
   await createFile(actionCreatorPath,actionCreater)
+  const reducerIndexContent = GenerateReducerIndex(entityName)
+  await appendFile(reducerIndexPath,reducerIndexContent)
   const reducerCreator = GenerateReducers(entityName);
   await createFile(reducerCreatorPath,reducerCreator)
   //get Data to write in files 
@@ -102,7 +106,9 @@ const createDir = (entityName) => {
   fs.mkdirSync(process.cwd() + folderName + '/actions', { recursive: true }, (error) => {
 
   })
-  //fs.mkdirSync(process.cwd() + folderName + '/reducers')
+  fs.mkdirSync(process.cwd() + folderName + '/reducers', { recursive: true }, (error) => {
+
+  })
   //fs.mkdirSync(process.cwd() + folderName + '/constants')
 }
 

@@ -1,5 +1,5 @@
-const GenerateActionsIndex = (actionNames) => {
-return `export {} from "./${actionNames}" \n`
+const GenerateActionsIndex = (actionNames,entityName) => {
+return `export {add${entityName},edit${entityName},get${entityName}} from "./${actionNames}" \n`
 }
 
 
