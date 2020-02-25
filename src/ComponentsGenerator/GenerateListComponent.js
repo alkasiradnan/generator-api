@@ -96,10 +96,11 @@ console.log("properties in header",properties)
       return <div>
           <div className='d-flex'>
           <h1 className='mr-auto'>  ${entityName}List</h1>
-          <button type='button' 
-          onClick={openModal} 
-          className='btn btn-primary mr-2' 
-          style={{height:'37px',width:'76px'}}>Add</button>
+          <button
+          className='btn btn-primary'
+           onClick={openModal} 
+           style={{height:'37px',width:'76px'}}>
+          Add<i className="fa fa-plus-square fa-2x" aria-hidden="true" title='add' /></button>  
         {toggle?<GenerateCreateComponent toggle={toggle} modal={modal} clicked={openModal} />:''}
           </div>
           
