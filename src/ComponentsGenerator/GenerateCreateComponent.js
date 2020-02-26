@@ -12,16 +12,13 @@ module.exports = function GenerateCreateComponent(entityName, properties) {
     return `
 
     import React, { Component } from 'react';
-    import DynamicForm from '../shared/DynamicForm';
 
     import { connect } from "react-redux";
-    import addEmployee from "./actions/employeeAction";
-    // import editEmployee from "./actions/employeeAction";
-    // import getEmployee from "./actions/employeeAction";
+    import {add${entityName},edit${entityName},get${entityName}} from "../actions/${entityName.toLowerCase()}Action";
     import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label, Form, FormGroup } from 'reactstrap';
-    const employee = ({});
+    const ${entityName.toLowerCase()} = ({});
     
-    export default class ${entityName}CreateComponent  extends Component{
+   class ${entityName}CreateComponent  extends Component{
      ${imgContent}
 
     constructor(props)
@@ -29,7 +26,7 @@ module.exports = function GenerateCreateComponent(entityName, properties) {
      super(props)
      this.state = {
          file: [null],
-         employee :{
+         ${entityName.toLowerCase()} :{
           user:'',
           telephone:'',
           date:'',
@@ -51,23 +48,26 @@ module.exports = function GenerateCreateComponent(entityName, properties) {
 
      onChange = (e) => {
       this.setState({
-         employee:{
-          ...this.state.employee,
+        ${entityName.toLowerCase()}:{
+          ...this.state.${entityName.toLowerCase()},
           [e.target.name]: e.target.value
         }
         });
     }
        
     onSubmit = () => {
-      console.log(this.state.employee);
-      this.props.onSubmit(this.state.employee);
+      console.log(this.state.${entityName.toLowerCase()});
+      this.props.onSubmit(this.state.${entityName.toLowerCase()});
     }
 
   render(){
   return (
       <div>
       <Modal isOpen={this.props.modal} toggle={this.props.clicked} backdrop={this.state.backdrop} >
-    ${result}
+      <ModalHeader>Add ${entityName}</ModalHeader>
+      <ModalBody>
+      ${result}
+      </ModalBody>
     </Modal>
     </div>
   );
@@ -78,12 +78,12 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onSubmit: (employee) => {
-    const payload = addEmployee.add${entityName}(employee);
+  onSubmit: (${entityName.toLowerCase()}) => {
+    const payload = add${entityName}(${entityName.toLowerCase()});
     dispatch({ type: 'ADD_${entityName.toUpperCase()}', payload })
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(${entityName});
+export default connect(mapStateToProps, mapDispatchToProps)(${entityName}CreateComponent);
     `
 }

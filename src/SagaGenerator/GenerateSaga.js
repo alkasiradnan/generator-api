@@ -8,8 +8,9 @@ const GenerateSaga = (entityName) =>
         // yield call(delay, 1000)
         try {
           console.log("in saga onADD");
-          
-          yield put({ type: 'ADD_${entityName.toUpperCase()}' ,value : 1})
+          const res = yield call (fetch,"https://jsonplaceholder.typicode.com/posts1/");
+          const result = yield res.json();
+          yield put({ type: 'INSERT_${entityName.toUpperCase()}' ,value : result})
         }
         catch (error) {
           console.log(error);
@@ -41,18 +42,24 @@ const GenerateSaga = (entityName) =>
 
 const GenerateSagaIndex = (entityName) =>
 {
-    return `import { all, fork} from 'redux-saga/effects'
+    return `import { takeLatest} from 'redux-saga/effects'
     // Imports: Redux Sagas
-    import { onAdd, onEdit ,onGet} from './saga';
+    import { onAdd, onEdit ,onGet} from './${entityName.toLowerCase()}Saga';
+    import * as actionTypes from "../actions/actionTypes";
+
     // Redux Saga: Root Saga
     export function* rootSaga () {
         console.log("im in saga root function..");
-        
-    yield all([
-        fork(onAdd),
-        fork(onEdit),
-        fork(onGet)
-    ]);
+    
+    yield takeLatest(actionTypes.ADD_${entityName.toUpperCase()}, onAdd)
+    yield takeLatest(actionTypes.EDIT_${entityName.toUpperCase()}, onEdit)
+    yield takeLatest(actionTypes.GET_${entityName.toUpperCase()}, onGet)
+
+    // yield all([
+    //     fork(onAdd),
+    //     fork(onEdit),
+    //     fork(onGet)
+    // ]);
     };`
 }
 

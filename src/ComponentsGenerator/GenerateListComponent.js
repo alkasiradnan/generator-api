@@ -8,7 +8,7 @@ console.log("properties in header",properties)
     import React, { useEffect, useState } from "react";
     import axios from 'axios';
     import { Table } from 'reactstrap';
-    import GenerateCreateComponent from './GenerateCreateComponent';
+    import ${entityName}CreateComponent from './${entityName}CreateComponent';
     import Pagination from '../shared/DataTable/Pagination';
     
 
@@ -29,6 +29,7 @@ console.log("properties in header",properties)
       const [search,setSearch]=useState('');
       const [toggle, setToggle] = useState(false);
       const [modal, setModal] = useState(false);
+      const [flag, setFlag] = useState(0);
 
       //render next 10 items when the currentPage changes
       useEffect(()=>{
@@ -66,9 +67,13 @@ console.log("properties in header",properties)
       const openModal = () => {
         setToggle(!toggle);
         setModal(!modal);
+        setFlag(1);
       };
       
       const editEmployee=(id)=>{
+        setToggle(!toggle);
+        setModal(!modal);
+        setFlag(2)
 
       }
       const deleteEmployee=(id)=>{
@@ -93,15 +98,17 @@ console.log("properties in header",properties)
           }
       }
       
-      return <div>
-          <div className='d-flex'>
+      return <div style={{padding : "0 0.5rem"}}>
+          <div className='d-flex mt-2 align-items-center'>
           <h1 className='mr-auto'>  ${entityName}List</h1>
           <button
-          className='btn btn-primary'
+          className='btn btn-primary d-flex align-items-center '
            onClick={openModal} 
-           style={{height:'37px',width:'76px'}}>
-          Add<i className="fa fa-plus-square fa-2x" aria-hidden="true" title='add' /></button>  
-        {toggle?<GenerateCreateComponent toggle={toggle} modal={modal} clicked={openModal} />:''}
+           style={{height:"35px",fontSize: "1.2rem",
+          padding: "0 .5rem"}}>
+          <i className="fa fa-plus-square mr-2"  style={{fontSize:"1.5rem"}} aria-hidden="true" title='add' ></i>Add</button>  
+        {flag === 1?<${entityName}CreateComponent toggle={toggle} modal={modal} clicked={openModal} />:''}
+        {flag ===2 ?<${entityName}EditComponent toggle={toggle} modal={modal} clicked={openModal} />:''}
           </div>
           
           <hr></hr>

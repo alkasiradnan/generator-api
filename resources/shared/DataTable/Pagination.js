@@ -3,12 +3,15 @@ import React, { useState, useEffect } from "react";
 const Pagination = ({ setStartIndex, pageSize, count }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [noOfPages, setNoOfPages] = useState();
+  const totalPages=[];
 
-  useEffect(() => {
-    setNoOfPages(Array.from(Array(count / pageSize).keys()));
-  }, [count, pageSize]);
-
-  console.log(Array.from(Array(count / pageSize).keys()));
+  useEffect(()=>{
+     for(let i=1;i<=Math.ceil(count/ pageSize);i++){
+       totalPages.push(i);  
+     }
+     setNoOfPages(noOfPages=>totalPages) ;
+     console.log(noOfPages);
+   }, [count, pageSize]);
   return noOfPages && noOfPages.length ? (
     <div>
       <ul className="pagination justify-content-center ">

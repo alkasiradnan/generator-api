@@ -6,7 +6,7 @@ const GenerateListComponent = require('./ComponentsGenerator/GenerateListCompone
 const GenerateCreateComponent = require('./ComponentsGenerator/GenerateCreateComponent');
 const {GenerateActionsIndex,GenerateActions,GenerateConstantFile} = require('./ActionsGenerator/GenerateAction');
 const {GenerateReducers} = require('./ReducersGenerator/GenerateReducer');
-const {GenerateReducerIndex} = require('./ReducerGenerator/GenerateReducer');
+// const {GenerateReducerIndex} = require('./ReducerGenerator/GenerateReducer');
 const {GenerateSaga,GenerateSagaIndex} = require('./SagaGenerator/GenerateSaga');
 
 const fs = require('fs')
@@ -17,7 +17,7 @@ var fsExtra = require("fs-extra");
 require('dotenv').config();
 
 const middlewares = require('./middlewares');
-const api = require('./api');
+// const api = require('./api');
 
 const app = express();
 const folderName = '/starter-project'
@@ -43,17 +43,17 @@ app.post('/process', async (req, res) => {
   const entityProperties = req.body.Properties;
   console.log(entityName)
   console.log(entityProperties);
-  const ListcomponentPath = process.cwd() + folderName + '/' + entityName.toLowerCase() + '/' + entityName.toLowerCase() + 'Listcomponent.js';
-  const CreatecomponentPath = process.cwd() + folderName + '/' + entityName.toLowerCase() + '/' + entityName.toLowerCase() + 'Createcomponent.js';
-  const EditcomponentPath = process.cwd() + folderName + '/' + entityName.toLowerCase() + '/' + entityName.toLowerCase() + 'Editcomponent.js';
+  const ListcomponentPath = process.cwd() + folderName + '/' + entityName.toLowerCase() + '/' + entityName.toLowerCase() + 'ListComponent.js';
+  const CreatecomponentPath = process.cwd() + folderName + '/' + entityName.toLowerCase() + '/' + entityName.toLowerCase() + 'CreateComponent.js';
+  const EditcomponentPath = process.cwd() + folderName + '/' + entityName.toLowerCase() + '/' + entityName.toLowerCase() + 'EditComponent.js';
   const CssPath = process.cwd() + folderName + '/' + entityName.toLowerCase() + '/' + entityName.toLowerCase() + '.css';
   const actionIndexPath = process.cwd() + folderName + '/actions'+ '/' +'index.js';
   const actionCreatorPath = process.cwd() + folderName + '/actions'+ '/' +entityName.toLowerCase()+'Action.js';
   const constantsPath = process.cwd() + folderName + '/actions'+ '/' +'actionTypes.js';
   const reducerCreatorPath = process.cwd() + folderName + '/reducers'+ '/' +entityName.toLowerCase()+'Reducer.js';
   const reducerIndexPath = process.cwd() + folderName + '/reducers'+ '/' +'index.js';
-  const sagaCreatorPath = process.cwd() + folderName + '/sagas'+ '/' +'saga.js';
-  const sagaIndexPath = process.cwd() + folderName + '/sagas'+ '/' +'index.js';
+  const sagaCreatorPath = process.cwd() + folderName + '/sagas'+ '/' +entityName.toLowerCase()+'Saga.js';
+  const sagaIndexPath = process.cwd() + folderName + '/sagas'+ '/' +'watchApp'+entityName+'.js';
   //create a shared folder with dynamic table and forms
 
 
@@ -87,8 +87,8 @@ app.post('/process', async (req, res) => {
   await appendFile(constantsPath, constantActionTypes)
   const actionCreater = GenerateActions(entityName);
   await createFile(actionCreatorPath,actionCreater)
-  const reducerIndexContent = GenerateReducerIndex(entityName)
-  await appendFile(reducerIndexPath,reducerIndexContent)
+  // const reducerIndexContent = GenerateReducerIndex(entityName)
+  // await appendFile(reducerIndexPath,reducerIndexContent)
   const reducerCreator = GenerateReducers(entityName);
   await createFile(reducerCreatorPath,reducerCreator)
   const sagaIndexContent = GenerateSagaIndex(entityName)
@@ -158,7 +158,7 @@ const appendFile = (filePath,fileContent) =>{
 
 
 
-app.use('/api/v1', api);
+// app.use('/api/v1', api);
 
 app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);

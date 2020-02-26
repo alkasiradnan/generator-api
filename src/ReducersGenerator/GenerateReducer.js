@@ -4,7 +4,8 @@ const GenerateReducers = (entityName) =>{
         return `
         import * as actionTypes from '../actions/actionTypes'
 
-        export default (state, action) => {      
+        const initialState = {};
+        const  ${entityName}Reducer = (state = initialState, action) => {      
             switch (action.type) {
                 case actionTypes.ADD_${entityName.toUpperCase()}:
                     return {
@@ -22,13 +23,14 @@ const GenerateReducers = (entityName) =>{
                     return {
                         ...state,
                         errors: action.error ? action.payload.errors : null,
-                        get${entityName}:: action.payload
+                        get${entityName}: action.payload
                     };
                            
                 default:
                     return state;
             }
-          };`
+          };
+          export default ${entityName}Reducer`
 }
 
 module.exports = {GenerateReducers};
