@@ -7,7 +7,7 @@ const GenerateCreateComponent = require('./ComponentsGenerator/GenerateCreateCom
 const {GenerateActionsIndex,GenerateActions,GenerateConstantFile} = require('./ActionsGenerator/GenerateAction');
 const {GenerateReducers} = require('./ReducersGenerator/GenerateReducer');
 const {GenerateReducerIndex} = require('./ReducerGenerator/GenerateReducer');
-
+const {GenerateSaga,GenerateSagaIndex} = require('./SagaGenerator/GenerateSaga');
 
 const fs = require('fs')
 const fsPromises = fs.promises;
@@ -52,6 +52,8 @@ app.post('/process', async (req, res) => {
   const constantsPath = process.cwd() + folderName + '/actions'+ '/' +'actionTypes.js';
   const reducerCreatorPath = process.cwd() + folderName + '/reducers'+ '/' +entityName.toLowerCase()+'Reducer.js';
   const reducerIndexPath = process.cwd() + folderName + '/reducers'+ '/' +'index.js';
+  const sagaCreatorPath = process.cwd() + folderName + '/sagas'+ '/' +'saga.js';
+  const sagaIndexPath = process.cwd() + folderName + '/sagas'+ '/' +'index.js';
   //create a shared folder with dynamic table and forms
 
 
@@ -89,6 +91,10 @@ app.post('/process', async (req, res) => {
   await appendFile(reducerIndexPath,reducerIndexContent)
   const reducerCreator = GenerateReducers(entityName);
   await createFile(reducerCreatorPath,reducerCreator)
+  const sagaIndexContent = GenerateSagaIndex(entityName)
+  await appendFile(sagaIndexPath,sagaIndexContent)
+  const sagaCreator = GenerateSaga(entityName);
+  await createFile(sagaCreatorPath,sagaCreator)
   //get Data to write in files 
 
   //create files 
@@ -107,6 +113,9 @@ const createDir = (entityName) => {
 
   })
   fs.mkdirSync(process.cwd() + folderName + '/reducers', { recursive: true }, (error) => {
+
+  })
+  fs.mkdirSync(process.cwd() + folderName + '/sagas', { recursive: true }, (error) => {
 
   })
   //fs.mkdirSync(process.cwd() + folderName + '/constants')
