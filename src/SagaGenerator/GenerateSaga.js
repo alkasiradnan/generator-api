@@ -1,7 +1,7 @@
 const GenerateSaga = (entityName) =>
 {
     return `
-        import { put } from 'redux-saga/effects'
+        import { put,call } from 'redux-saga/effects'
 
         export function* onAdd() {
         // use the call Effect

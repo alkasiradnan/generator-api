@@ -9,6 +9,7 @@ console.log("properties in header",properties)
     import axios from 'axios';
     import { Table } from 'reactstrap';
     import ${entityName}CreateComponent from './${entityName}CreateComponent';
+    import ${entityName}EditComponent from './${entityName}EditComponent';
     import Pagination from '../shared/DataTable/Pagination';
     
 
