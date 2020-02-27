@@ -8,7 +8,8 @@ console.log("properties in header",properties)
     import React, { useEffect, useState } from "react";
     import axios from 'axios';
     import { Table } from 'reactstrap';
-    import ${entityName}CreateComponent from './${entityName}CreateComponent';
+    import ${entityName.toLowerCase()}CreateComponent from './${entityName.toLowerCase()}CreateComponent';
+    import ${entityName.toLowerCase()}EditComponent from './${entityName.toLowerCase()}EditComponent';
     import Pagination from '../shared/DataTable/Pagination';
     
 

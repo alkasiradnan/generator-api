@@ -92,7 +92,7 @@ app.post('/process', async (req, res) => {
   const reducerCreator = GenerateReducers(entityName);
   await createFile(reducerCreatorPath,reducerCreator)
   const sagaIndexContent = GenerateSagaIndex(entityName)
-  await appendFile(sagaIndexPath,sagaIndexContent)
+  await createFile(sagaIndexPath,sagaIndexContent)
   const sagaCreator = GenerateSaga(entityName);
   await createFile(sagaCreatorPath,sagaCreator)
   //get Data to write in files 

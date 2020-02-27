@@ -8,6 +8,11 @@ module.exports = function GenerateCreateComponent(entityName, properties) {
           imgContent = imageFunc();
       }
     })
+    let stateVal ="" , lVal = "";
+     properties.map((item) => { 
+      // item.type === 'Number' ? lVal = ": Number, " :lVal = ": '', " 
+      stateVal = stateVal + item.name.toLowerCase() + ": '', "
+      })
 
     return `
 
@@ -27,20 +32,10 @@ module.exports = function GenerateCreateComponent(entityName, properties) {
      this.state = {
          file: [null],
          ${entityName.toLowerCase()} :{
-          user:'',
-          telephone:'',
-          date:'',
-          select :'',
-          check:'',
-          color:'',
-          myFile:'',
-          img:'',
-          contact:'',
-          radio:'',
-          urlPath:'',
-          backdrop:true,
-          keyboard:true
-        }
+          ${stateVal} 
+          // keyboard:true
+        },
+        backdrop:true
      }
     //  this.uploadMultipleFiles = this.uploadMultipleFiles.bind(this)
     //  this.uploadFiles = this.uploadFiles.bind(this)
@@ -50,7 +45,7 @@ module.exports = function GenerateCreateComponent(entityName, properties) {
       this.setState({
         ${entityName.toLowerCase()}:{
           ...this.state.${entityName.toLowerCase()},
-          [e.target.name]: e.target.value
+          [e.target.name]: e.target.type === "number"? parseInt(e.target.value) :e.target.value
         }
         });
     }

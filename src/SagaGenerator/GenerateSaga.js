@@ -1,9 +1,9 @@
 const GenerateSaga = (entityName) =>
 {
     return `
-        import { put } from 'redux-saga/effects'
+        import { put,call } from 'redux-saga/effects'
 
-        export function* onAdd() {
+        export function* onAdd({payload}) {
         // use the call Effect
         // yield call(delay, 1000)
         try {
