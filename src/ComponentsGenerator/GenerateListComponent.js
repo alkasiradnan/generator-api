@@ -162,7 +162,7 @@ function GenerateTableBody(entityName,properties){
 `{${entityName}Copys.map(${entityName} => {
   return (`  
   const tbodyToRender=properties.map(propName=>{
-    return `<td>{${entityName}['${propName.name}']}</td>`
+    return `<td>{${entityName}['${propName.name.toLowerCase()}']}</td>`
   }).concat([`<td>
   <i class="fa fa-pencil-square-o fa-2x mr-4" data-toggle='tooltip' title='edit' aria-hidden="true"  onClick={(id)=>edit${entityName}(id)}></i>
   <i class="fa fa-trash-o fa-2x" data-toggle='tooltip' title='delete' aria-hidden="true" onClick={(id)=>delete${entityName}(id)}></i>
