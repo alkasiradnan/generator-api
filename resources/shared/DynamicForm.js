@@ -19,10 +19,10 @@ let content = items.map((item) => {
      if(item.type.toLowerCase() === 'text'){
         return  textBox(item.name,entityName)
     }
-    else if(item.type.toLowerCase() === 'checkBox'){
+    else if(item.type.toLowerCase() === 'checkbox'){
         return  checkBox()
     }
-    else if(item.type.toLowerCase() === 'radioButton'){
+    else if(item.type.toLowerCase() === 'radiobutton'){
         return  radioButton(item.name,entityName)
     }
     else if(item.type.toLowerCase() === 'color'){

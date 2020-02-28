@@ -13,10 +13,10 @@ image = (name,entityName) => {
                 </div>
 
                 <div className="form-group">
-                <input type="file" style={{visibility:'hidden'}} name = "image"   id="selectedFile"
+                <input type="file" style={{visibility:'hidden'}} name = "img"   id="selectedFile"
                 className="form-control" onChange={this.uploadMultipleFiles}  value = {${entityName.toLowerCase()}['${name}']} multiple onChange={this.onChange}/>
 
-                <img src = {require('./images/img-upload.png')} id="upfile1"  alt = "Click" 
+                <img src = {require('../images/img-upload.png')} id="upfile1"  alt = "Click" 
                 style={{width:'40px',height:'40px'}} onClick = {this.imageClick}  />
                 
                 </div>
