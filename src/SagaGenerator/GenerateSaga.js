@@ -8,7 +8,10 @@ const GenerateSaga = (entityName) =>
         // yield call(delay, 1000)
         try {
           console.log("in saga onADD");
-          const res = yield call (fetch,"https://jsonplaceholder.typicode.com/posts1/");
+          console.log(JSON.stringify(payload.data));
+          const res = yield call (fetch,"http://localhost:3000/employee-data/",
+          {method : "POST",body : JSON.stringify(payload.data),
+          headers : {'Content-Type' : 'application/json'}});
           const result = yield res.json();
           yield put({ type: 'INSERT_${entityName.toUpperCase()}' ,value : result})
         }

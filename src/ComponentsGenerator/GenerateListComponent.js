@@ -48,7 +48,7 @@ console.log("properties in header",properties)
       
       const fetch${entityName}s = async () => {
         const ${entityName}Response = await axios.get(
-          "https://jsonplaceholder.typicode.com/posts//"
+          "http://localhost:3000/employee-data/"
         );
         if (${entityName}Response && ${entityName}Response.data) {
           set${entityName}s(${entityName}Response.data);
