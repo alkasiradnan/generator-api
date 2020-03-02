@@ -80,6 +80,6 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(${entityName}CreateComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(${entityName}EditComponent);
     `
 }
