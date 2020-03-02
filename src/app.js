@@ -4,10 +4,14 @@ const helmet = require('helmet');
 const cors = require('cors');
 const GenerateListComponent = require('./ComponentsGenerator/GenerateListComponent');
 const GenerateCreateComponent = require('./ComponentsGenerator/GenerateCreateComponent');
+const GenerateEditComponent = require('./ComponentsGenerator/GenerateEditComponent');
 const {GenerateActionsIndex,GenerateActions,GenerateConstantFile} = require('./ActionsGenerator/GenerateAction');
 const {GenerateReducers} = require('./ReducersGenerator/GenerateReducer');
 // const {GenerateReducerIndex} = require('./ReducerGenerator/GenerateReducer');
 const {GenerateSaga,GenerateSagaIndex} = require('./SagaGenerator/GenerateSaga');
+const {GenerateSelector} = require('./SelectorGenerator/GenerateSelector');
+const {GenerateEndPoint} = require('./EndPointGenerator/GenerateEndPoint');
+const {GenerateCallService} = require('./CallServiceGenerator/GenerateCallService');
 
 const fs = require('fs')
 const fsPromises = fs.promises;
@@ -54,6 +58,9 @@ app.post('/process', async (req, res) => {
   const reducerIndexPath = process.cwd() + folderName + '/reducers'+ '/' +'index.js';
   const sagaCreatorPath = process.cwd() + folderName + '/sagas'+ '/' +entityName.toLowerCase()+'Saga.js';
   const sagaIndexPath = process.cwd() + folderName + '/sagas'+ '/' +'watchApp'+entityName+'.js';
+  const selectorPath = process.cwd() + folderName + '/' + 'selectors.js';
+  const endPointPath = process.cwd() + folderName + '/endPoints'+ '/' +'userDetails.js';
+  const callServicePath = process.cwd() + folderName + '/common'+ '/' +'apiCallService.js';
   //create a shared folder with dynamic table and forms
 
 
@@ -73,7 +80,7 @@ app.post('/process', async (req, res) => {
 
   console.log(content);
   const createContent = GenerateCreateComponent(entityName, entityProperties, false)
-  const editContent = GenerateCreateComponent(entityName, entityProperties, true)
+  const editContent = GenerateEditComponent(entityName, entityProperties, true)
   await createFile(CreatecomponentPath, createContent)
   await createFile(EditcomponentPath, editContent)
   await createFile(CssPath, "CssPath")
@@ -95,6 +102,12 @@ app.post('/process', async (req, res) => {
   await createFile(sagaIndexPath,sagaIndexContent)
   const sagaCreator = GenerateSaga(entityName);
   await createFile(sagaCreatorPath,sagaCreator)
+  const selectorCreator = GenerateSelector();
+  await createFile(selectorPath,selectorCreator)
+  const endPointCreator = GenerateEndPoint();
+  await createFile(endPointPath,endPointCreator)
+  const callServiceCreator = GenerateCallService();
+  await createFile(callServicePath,callServiceCreator)
   //get Data to write in files 
 
   //create files 
@@ -116,6 +129,12 @@ const createDir = (entityName) => {
 
   })
   fs.mkdirSync(process.cwd() + folderName + '/sagas', { recursive: true }, (error) => {
+
+  })
+  fs.mkdirSync(process.cwd() + folderName + '/endPoints', { recursive: true }, (error) => {
+
+  })
+  fs.mkdirSync(process.cwd() + folderName + '/common', { recursive: true }, (error) => {
 
   })
   //fs.mkdirSync(process.cwd() + folderName + '/constants')

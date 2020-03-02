@@ -31,7 +31,7 @@ console.log("properties in header",properties)
       const [toggle, setToggle] = useState(false);
       const [modal, setModal] = useState(false);
       const [flag, setFlag] = useState(0);
-
+      const [data,setData] = useState(null);
       //render next 10 items when the currentPage changes
       useEffect(()=>{
         if(${entityName}Copys.length<=pageSize){
@@ -71,11 +71,11 @@ console.log("properties in header",properties)
         setFlag(1);
       };
       
-      const editEmployee=(id)=>{
+      const editEmployee=(data)=>{
         setToggle(!toggle);
         setModal(!modal);
         setFlag(2)
-
+        setData(data);
       }
       const deleteEmployee=(id)=>{
     
@@ -109,7 +109,7 @@ console.log("properties in header",properties)
           padding: "0 .5rem"}}>
           <i className="fa fa-plus-square mr-2"  style={{fontSize:"1.5rem"}} aria-hidden="true" title='add' ></i>Add</button>  
         {flag === 1?<${entityName}CreateComponent toggle={toggle} modal={modal} clicked={openModal} />:''}
-        {flag ===2 ?<${entityName}EditComponent toggle={toggle} modal={modal} clicked={openModal} />:''}
+        {flag ===2 ?<${entityName}EditComponent toggle={toggle} data={data} modal={modal} clicked={openModal} />:''}
           </div>
           
           <hr></hr>
@@ -164,7 +164,7 @@ function GenerateTableBody(entityName,properties){
   const tbodyToRender=properties.map(propName=>{
     return `<td>{${entityName}['${propName.name.toLowerCase()}']}</td>`
   }).concat([`<td>
-  <i class="fa fa-pencil-square-o fa-2x mr-4" data-toggle='tooltip' title='edit' aria-hidden="true"  onClick={(id)=>edit${entityName}(id)}></i>
+  <i class="fa fa-pencil-square-o fa-2x mr-4" data-toggle='tooltip' title='edit' aria-hidden="true"  onClick={(id)=>edit${entityName}(${entityName})}></i>
   <i class="fa fa-trash-o fa-2x" data-toggle='tooltip' title='delete' aria-hidden="true" onClick={(id)=>delete${entityName}(id)}></i>
   </td>`]).join(' ')
 

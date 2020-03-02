@@ -14,7 +14,7 @@ image = (name,entityName) => {
 
                 <div className="form-group">
                 <input type="file" style={{visibility:'hidden'}} name = "img"   id="selectedFile"
-                className="form-control" onChange={this.uploadMultipleFiles}  value = {${entityName.toLowerCase()}['${name}']} multiple onChange={this.onChange}/>
+                className="form-control" onChange={this.uploadMultipleFiles}   multiple onChange={this.onChange}/>
 
                 <img src = {require('../images/img-upload.png')} id="upfile1"  alt = "Click" 
                 style={{width:'40px',height:'40px'}} onClick = {this.imageClick}  />
