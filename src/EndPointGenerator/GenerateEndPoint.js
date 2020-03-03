@@ -1,8 +1,8 @@
 const GenerateEndPoint = () =>
 {
-    return `import { axiosCallService,axiosCallServicePut } from './../common/apiCallService';
+    return `import { axiosCallService,axiosCallServicePut,axiosCallServiceDelete } from './../common/apiCallService';
 
-    export const getUserDetails = (baseUrl, data) =>
+    export const postUserDetails = (baseUrl, data) =>
      {     
          console.log("in user details..",data);
          axiosCallService(`+'`'+`$`+'{'+`baseUrl`+'}'+`/employee-data`+ '`'+`, data);
@@ -14,8 +14,15 @@ const GenerateEndPoint = () =>
          axiosCallServicePut(`+'`'+`$`+'{'+`baseUrl`+'}'+
          `/employee-data/`+`$`+'{'+`data.id`+'}'+ '`'+`, data);
     };
+
+    export const deleteUserDetails = (baseUrl, data) =>
+    {     
+         console.log("in user details delete..",data);
+         axiosCallServiceDelete(`+'`'+`$`+'{'+`baseUrl`+'}'+
+         `/employee-data/`+`$`+'{'+`data.id`+'}'+ '`'+`, data);
+    };
         
-    export default {getUserDetails,putUserDetails};`;
+    export default {postUserDetails,putUserDetails,deleteUserDetails};`;
 }
 
 module.exports  ={GenerateEndPoint}

@@ -5,6 +5,7 @@ const cors = require('cors');
 const GenerateListComponent = require('./ComponentsGenerator/GenerateListComponent');
 const GenerateCreateComponent = require('./ComponentsGenerator/GenerateCreateComponent');
 const GenerateEditComponent = require('./ComponentsGenerator/GenerateEditComponent');
+const GenerateDeleteComponent = require('./ComponentsGenerator/GenerateDeleteComponent');
 const {GenerateActionsIndex,GenerateActions,GenerateConstantFile} = require('./ActionsGenerator/GenerateAction');
 const {GenerateReducers} = require('./ReducersGenerator/GenerateReducer');
 // const {GenerateReducerIndex} = require('./ReducerGenerator/GenerateReducer');
@@ -50,6 +51,7 @@ app.post('/process', async (req, res) => {
   const ListcomponentPath = process.cwd() + folderName + '/' + entityName.toLowerCase() + '/' + entityName.toLowerCase() + 'ListComponent.js';
   const CreatecomponentPath = process.cwd() + folderName + '/' + entityName.toLowerCase() + '/' + entityName.toLowerCase() + 'CreateComponent.js';
   const EditcomponentPath = process.cwd() + folderName + '/' + entityName.toLowerCase() + '/' + entityName.toLowerCase() + 'EditComponent.js';
+  const DeleteComponentPath = process.cwd() + folderName + '/' + entityName.toLowerCase() + '/' + entityName.toLowerCase() + 'DeleteComponent.js';
   const CssPath = process.cwd() + folderName + '/' + entityName.toLowerCase() + '/' + entityName.toLowerCase() + '.css';
   const actionIndexPath = process.cwd() + folderName + '/actions'+ '/' +'index.js';
   const actionCreatorPath = process.cwd() + folderName + '/actions'+ '/' +entityName.toLowerCase()+'Action.js';
@@ -83,6 +85,8 @@ app.post('/process', async (req, res) => {
   const editContent = GenerateEditComponent(entityName, entityProperties, true)
   await createFile(CreatecomponentPath, createContent)
   await createFile(EditcomponentPath, editContent)
+  const deleteContent = GenerateDeleteComponent(entityName, entityProperties, true)
+  await createFile(DeleteComponentPath, deleteContent)
   await createFile(CssPath, "CssPath")
   const actionNames = entityName.toLowerCase()+"Action"
   console.log("actio",actionNames)

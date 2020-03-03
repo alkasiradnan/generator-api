@@ -3,7 +3,7 @@ const GenerateSaga = (entityName) =>
     return `
         import { put,call } from 'redux-saga/effects'
         import getBaseURL from '../selectors.js'
-        import {getUserDetails,putUserDetails}  from '../endPoints/userDetails'
+        import {postUserDetails,putUserDetails,deleteUserDetails}  from '../endPoints/userDetails'
 
         export function* onAdd({payload}) {
         // use the call Effect
@@ -19,7 +19,7 @@ const GenerateSaga = (entityName) =>
           // {method : "POST",body : JSON.stringify(payload.data),
           // headers : {'Content-Type' : 'application/json'}});
 
-          const res = yield call(getUserDetails,getBaseURL,reqBody);
+          const res = yield call(postUserDetails,getBaseURL,reqBody);
           // console.log("res..",res);
           
           // const result = yield res.json();
@@ -53,6 +53,19 @@ const GenerateSaga = (entityName) =>
             catch (error) {
             console.log(error);
             }
+        };
+        export function* onDelete({payload}) {
+            // use the call Effect
+            // yield call(delay, 1000)
+            try{
+              let reqBody = {
+                ...payload.data,
+              }
+              const res = yield call(deleteUserDetails,getBaseURL,reqBody);
+            }
+            catch (error) {
+            console.log(error);
+            }
         };`
 }
 
@@ -60,7 +73,7 @@ const GenerateSagaIndex = (entityName) =>
 {
     return `import { takeLatest} from 'redux-saga/effects'
     // Imports: Redux Sagas
-    import { onAdd, onEdit ,onGet} from './${entityName.toLowerCase()}Saga';
+    import { onAdd, onEdit ,onGet,onDelete} from './${entityName.toLowerCase()}Saga';
     import * as actionTypes from "../actions/actionTypes";
 
     // Redux Saga: Root Saga
@@ -70,7 +83,7 @@ const GenerateSagaIndex = (entityName) =>
     yield takeLatest(actionTypes.ADD_${entityName.toUpperCase()}, onAdd)
     yield takeLatest(actionTypes.EDIT_${entityName.toUpperCase()}, onEdit)
     yield takeLatest(actionTypes.GET_${entityName.toUpperCase()}, onGet)
-
+    yield takeLatest(actionTypes.DELETE_${entityName.toUpperCase()}, onDelete)
     // yield all([
     //     fork(onAdd),
     //     fork(onEdit),

@@ -10,6 +10,7 @@ console.log("properties in header",properties)
     import { Table } from 'reactstrap';
     import ${entityName}CreateComponent from './${entityName.toLowerCase()}CreateComponent';
     import ${entityName}EditComponent from './${entityName.toLowerCase()}EditComponent';
+    import ${entityName}DeleteComponent from './${entityName.toLowerCase()}DeleteComponent';
     import Pagination from '../shared/DataTable/Pagination';
     
 
@@ -71,14 +72,20 @@ console.log("properties in header",properties)
         setFlag(1);
       };
       
-      const editEmployee=(data)=>{
+      const edit${entityName}=(data)=>{
         setToggle(!toggle);
         setModal(!modal);
         setFlag(2)
         setData(data);
       }
-      const deleteEmployee=(id)=>{
-    
+
+      const delete${entityName}=(data)=>{
+        console.log("im in delete..",data);
+        
+        setToggle(!toggle);
+        setModal(!modal);
+        setFlag(3)
+        setData(data);
       }
   
       const updateSearch=(e)=>{
@@ -110,7 +117,8 @@ console.log("properties in header",properties)
           <i className="fa fa-plus-square mr-2"  style={{fontSize:"1.5rem"}} aria-hidden="true" title='add' ></i>Add</button>  
         {flag === 1?<${entityName}CreateComponent toggle={toggle} modal={modal} clicked={openModal} />:''}
         {flag ===2 ?<${entityName}EditComponent toggle={toggle} data={data} modal={modal} clicked={openModal} />:''}
-          </div>
+        {flag ===3 ?<${entityName}DeleteComponent toggle={toggle} data={data} modal={modal} clicked={openModal} />:''} 
+        </div>
           
           <hr></hr>
           <input 
@@ -165,7 +173,7 @@ function GenerateTableBody(entityName,properties){
     return `<td>{${entityName}['${propName.name.toLowerCase()}']}</td>`
   }).concat([`<td>
   <i class="fa fa-pencil-square-o fa-2x mr-4" data-toggle='tooltip' title='edit' aria-hidden="true"  onClick={(id)=>edit${entityName}(${entityName})}></i>
-  <i class="fa fa-trash-o fa-2x" data-toggle='tooltip' title='delete' aria-hidden="true" onClick={(id)=>delete${entityName}(id)}></i>
+  <i class="fa fa-trash-o fa-2x" data-toggle='tooltip' title='delete' aria-hidden="true" onClick={(id)=>delete${entityName}(${entityName})}></i>
   </td>`]).join(' ')
 
   

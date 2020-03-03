@@ -48,6 +48,27 @@ const GenerateCallService = () =>
                     reject();
                 })
         })
+    }
+    export function axiosCallServiceDelete(url, payload = {}) {
+        return new Promise((resolve, reject) => {
+            //var qs = require('querystring');
+            const location = url;
+             let postData = {...payload}
+            console.log("in axios...",postData);
+            
+            axios({
+                method: 'DELETE',
+                url: url,
+                data: postData,
+                headers:{'Content-Type' : 'application/json'}
+            }).then(resolve)
+                .catch(({ response }) => {
+                    if (response.status == 403) {
+                        location.replace('/')
+                    }
+                    reject();
+                })
+        })
     }`;
 }
 
