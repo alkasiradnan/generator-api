@@ -16,14 +16,14 @@ console.log("properties in header",properties)
 
     export default function ${entityName}ListComponent() {
       const [${entityName}s, set${entityName}s] = useState([
-        {User:'Deeraj',Telphone:'7304541558',Date:'23/05/2005'},
-        {User:'Raju',Telphone:'7304541558',Date:'23/05/2005'},
-        {User:'Neeraj',Telphone:'7304541558',Date:'23/05/2005'}
+        {user:'Deeraj',telephone:'7304541558',date:'23/05/2005'},
+        {user:'Raju',telephone:'7304541558',date:'23/05/2005'},
+        {user:'Neeraj',telephone:'7304541558',date:'23/05/2005'}
       ]);
       const [${entityName}Copys, set${entityName}Copys] = useState([
-        {User:'Deeraj',Telphone:'7304541558',Date:'23/05/2005'},
-        {User:'Raju',Telphone:'7304541558',Date:'23/05/2005'},
-        {User:'Neeraj',Telphone:'7304541558',Date:'23/05/2005'}
+        {user:'Deeraj',telephone:'7304541558',date:'23/05/2005'},
+        {user:'Raju',telephone:'7304541558',date:'23/05/2005'},
+        {user:'Neeraj',telephone:'7304541558',date:'23/05/2005'}
       ]);
       const [startIndex, setStartIndex] = useState(0)
       const [pageSize, setPageSize] = useState(10);
