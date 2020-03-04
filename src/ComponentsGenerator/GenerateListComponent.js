@@ -13,7 +13,7 @@ console.log("properties in header",properties)
     import Pagination from '../shared/DataTable/Pagination';
     
 
-    class EmployeeListComponent extends Component{
+    class ${entityName}ListComponent extends Component{
       state={
         ${entityName}s:[
          {user:'Abcd',telephone:'7304541558',date:'23/05/2005'},
@@ -36,7 +36,7 @@ console.log("properties in header",properties)
        data:null
       }
       
-      fetch${entityName}s = async () => {
+      fetch${entityName} = async () => {
         const ${entityName}Response = await axios.get(
           "http://localhost:3000/employee-data/"
         );
@@ -48,7 +48,7 @@ console.log("properties in header",properties)
       };
   
       componentDidMount(){
-        this.fetchEmployees();
+        this.fetch${entityName}();
           return () => {};
       }
   
@@ -60,14 +60,17 @@ console.log("properties in header",properties)
         this.setState({flag:1});
       };
       
-       editEmployee=(data)=>{
+       edit${entityName}=(data)=>{
         this.setState({toggle:!this.state.toggle});
         this.setState({modal:!this.state.modal});
         this.setState({flag:2});
         this.setState({data:this.state.data});
       }
-       deleteEmployee=(id)=>{
-    
+       delete${entityName}=(id)=>{
+        this.setState({toggle:!this.state.toggle});
+        this.setState({modal:!this.state.modal});
+        this.setState({flag:3});
+        this.setState({data:this.state.data});
       }
      
       updateSearch=(e)=>{
@@ -92,7 +95,7 @@ console.log("properties in header",properties)
       sorting=()=>{
         //console.log(key)
         if(this.state.${entityName}Copys && this.state.sortKey){
-          console.log(sortkey)
+          
           return this.state.${entityName}Copys.sort((a,b)=>{
             //console.log('a',a);
             //console.log('b',b);
@@ -104,7 +107,7 @@ console.log("properties in header",properties)
             if(x>y){return 1};
           });
         }
-        return this.state.EmployeeCopys;
+        return this.state.${entityName}Copys;
        }
 
           render(){
@@ -131,6 +134,7 @@ console.log("properties in header",properties)
       <i className="fa fa-plus-square mr-2"  style={{fontSize:"1.5rem"}} aria-hidden="true" title='add' ></i>Add</button>  
     {this.state.flag === 1?<${entityName}CreateComponent toggle={this.state.toggle} modal={this.state.modal} clicked={this.openModal} />:''}
     {this.state.flag ===2 ?<${entityName}EditComponent toggle={this.state.toggle} data={this.state.data} modal={this.state.modal} clicked={this.openModal} />:''}
+    {this.state.flag ===3 ?<${entityName}DeleteComponent toggle={this.state.toggle} data={this.state.data} modal={this.state.modal} clicked={this.openModal} />:''}
       </div>
       
           
